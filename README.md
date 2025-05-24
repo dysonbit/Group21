@@ -1,51 +1,125 @@
-*   **AI-Powered Financial Analysis:**
-    *   **General Transaction Analysis:** Users can input natural language requests, and AI analyzes raw transaction data within a specified time range.
-    *   **Personal Spending Summary:** AI generates a summary of personal spending habits based on monthly aggregated data.
-    *   **Savings Goal Suggestions:** AI provides savings goal suggestions based on monthly income and expenditure.
-    *   **Personalized Saving Tips:** AI offers targeted saving tips based on monthly spending categories.
-    *   **Student-Specific Advice:**
-        *   Budget suggestions for students.
-        *   Saving tips tailored for students.
-    *   **AI Category Recognition:** AI assists in suggesting transaction categories when adding or modifying transactions.
-    *   **[New Feature] Localized Financial Context Analysis (China Focus):**
-        *   Analyzes users' seasonal spending patterns in China.
-        *   Pays special attention to spending changes and trends during major Chinese public holidays (e.g., Spring Festival, National Day).
-        *   Analyzes expenses related to clothing, etc., during seasonal changes (e.g., spring/summer, autumn/winter transitions).
-        *   Identifies unusual spending behavior inconsistent with seasonal characteristics.
-        *   Provides targeted budgeting advice and financial planning tips.
-*   **Admin Statistics:**
-    *   Generates and displays weekly summary statistics for all users (total income, total expenses, top spending categories, etc.).
+# AI Bill Application
 
-## Technology Stack
+A Java-based personal finance management system with AI-powered spending analysis and visualization capabilities.
 
-*   **Backend:** Java
-*   **AI Model API:** Volcengine Ark - (Please confirm the specific model, e.g., `ep-20250308174053-7pbkq`)
-*   **GUI:** Java Swing, FlatLaf (for look and feel)
-*   **Data Storage:** CSV files
-*   **Charting Library:** XChart
-*   **CSV Handling:** Apache Commons CSV
-*   **Caching:** Caffeine
-*   **Build Tool:** (e.g., Maven, Gradle - Please specify for your project)
+## Features
 
-## New AI Feature: Localized Financial Context Analysis
+-  Transaction management (CRUD operations)
+-  Financial statistics and visualizations (histograms, monthly summaries)
+-  AI-driven spending pattern analysis 
+-  User authentication and role-based access
+-  CSV-based data persistence
+-  Caching system for performance optimization
+-  Comprehensive unit test coverage
 
-This branch introduces a new AI analysis feature designed to provide financial insights more relevant to users in China.
+## Technologies
 
-**Feature Highlights:**
+- **Core**: Java 21
+- **Build**: Maven
+- **AI Integration**: DeepSeek API
+- **UI**: Java Swing
+- **Testing**: JUnit 5
+- **Caching**: Caffeine
 
-1.  **Chinese Public Holiday Spending Analysis:**
-    *   The AI specifically analyzes spending patterns around major Chinese public holidays: Spring Festival (Chinese New Year), Qingming Festival, Labor Day, Dragon Boat Festival (Duanwu), National Day, and New Year's Day.
-    *   Identifies significant increases or changes in spending categories such as travel, gifts, dining out, and red packets (hongbao) during these periods.
-    *   Provides budgeting advice to prepare for these holidays based on past spending.
+## Installation
 
-2.  **Seasonal Spending & Budgeting:**
-    *   Analyzes spending on clothing during seasonal changes (e.g., spring/summer, autumn/winter transitions).
-    *   Suggests budgets for seasonal wardrobe updates.
-    *   Attempts to identify spending patterns inconsistent with the current season in China (e.g., high spending on winter clothing in summer).
+1. Clone repository:
+   ```bash
+   git clone https://github.com/yourusername/Ai-Bill-Application.git
+   ```
+## Configuration
 
-**Implementation Details:**
+1. Create `config.properties` in `src/main/resources`:
+   ```properties
+   # DeepSeek API Configuration
+    setx VOLCENGINE_ACCESS_KEY AKLTN2ZiY2Q4ODBhOWM3NDE4MzgzYjliZmNiMjQ0ZWJmMDQ
+    setx VOLCENGINE_SECRET_KEY T0RkaFpUVXhZV1JrTUdObE5EVmlNMkUzT0RRellXUTRNekJrTXpNeVl6WQ==
+    setx ARK_API_KEY fbd792bd-8463-4063-89d9-2d4b5bd7ef13
+   # CSV Storage Paths
+   csv.users.path=CSVForm/users/users.csv
+   csv.transactions.dir=CSVForm/transactions
+   csv.stats.dir=CSVForm/stats
+   ```
 
-*   This feature is primarily implemented by enhancing Prompt Engineering within `AITransactionService.java`.
-*   The AI analysis is based on the user's monthly summary bill data (`MonthlySummary`).
-*   By providing the AI model with more detailed instructions that include China-specific cultural and seasonal factors, it's guided to generate more localized insights.
-*   A new button, "Analyze Seasonal Spending (China Focus)," has been added to the AI analysis panel in `MenuUI.java` to trigger this function.
+
+Key Functionality:
+-  User registration/login
+-  Add transactions with categories
+-  View monthly spending summaries
+-  Generate spending pattern visualizations
+-  Get AI-generated financial advice
+
+## Code Structure and Key Classes
+
+### Core Components
+
+#### Controller Package
+- **UserDialog**: Handles user authentication flows 
+  - `void showLoginDialog()`: Displays modal dialog with login/registration form
+  - `boolean validateCredentials(String username, String password)`: Verifies credentials against user CSV
+  
+- **MenuUI**: Manages main application interface
+  - `JMenuBar initializeMenuBar()`: Constructs Swing menu with Data/Analysis/Help tabs
+  - `void showTransactionTable(List<Transaction>)`: Displays paginated records with sorting
+
+#### DAO Package
+- **CsvTransactionDao**: (Implements TransactionDao)
+  - `void saveTransaction(Transaction t)`: Persists to user-specific CSV with ISO date formatting
+  - `List<Transaction> findByDateRange(LocalDate start, LocalDate end)`: Retrieves using Java Time API
+
+#### Service Package
+- **TransactionServiceImpl**: (Implements TransactionService)
+  - `Map<Category, BigDecimal> analyzeSpendingPatterns()`: Groups by category with monetary sums
+  - `String generateAIRecommendations(String prompt)`: Uses DeepSeek API with prompt templating
+
+- **AIAnalyzerThread**: Background AI processing
+  - `void run()`: Implements Runnable for concurrent analysis
+  - `BudgetPlan generateBudgetPlan(User user)`: Creates with 50/30/20 rule implementation
+
+#### Model Package
+- **Transaction**: Core domain object
+  - `String toCSV()`: Produces comma-separated: date,amount,category,description
+  - `void validateAmount()`: Throws IllegalArgumentException for negative values
+  
+- **User**: Manages account details
+  - `void hashPassword()`: Uses BCrypt with 10 rounds salt
+  - `boolean hasAdminRole()`: Checks "isAdmin" flag in CSV record
+
+### Utility Classes
+- **CacheManager**: Optimizes data access
+  - `Cache<String, List<Transaction>> getCaffeineCache()`: 1MB max, 5min expiry
+  - `void refreshCache(String username)`: Evicts cache entries on data changes
+
+- **CollegeStudentNeeds**: AI personality profile
+  - `List<Transaction> generateMockSpending(int months)`: Creates textbook/rent/food patterns
+  - `Map<String, BigDecimal> analyzeEssentialSpending()`: Flags non-academic expenses
+
+## Project Structure
+
+```
+src/
+├── main
+│   ├── java
+│   │   └── com
+│   │       └── group21
+│   │           └── ai
+│   │               ├── Controller      # UI Components
+│   │               ├── DAO            # Data Access Objects
+│   │               ├── Service         # Business Logic
+│   │               ├── model           # Domain Models
+│   │               └── Utils          # Utility Classes
+│   └── resources
+│       └── CSVForm                   # CSV Storage
+└── test
+    └── java                         # Unit Tests
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create feature branch:
+   ```bash
+   git checkout -b feature/new-feature
+   ```
+3. Write tests for new functionality
+4. Submit pull request
