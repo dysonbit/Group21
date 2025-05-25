@@ -99,19 +99,13 @@ public class RegistrationDialog extends JDialog {
             // Optional: More password strength validation
 
 
-            // --- Show waiting dialog and submit task to ExecutorService ---
+            // --- Disable buttons and submit task to ExecutorService ---
             // 1. Disable button immediately on EDT
             registerButton.setEnabled(false);
             cancelButton.setEnabled(false);
 
-            // 2. Show the modal waiting dialog LAST in the EDT block
-            waitingDialog.setLocationRelativeTo(this);
-            waitingDialog.setVisible(true); // THIS CALL BLOCKS THE EDT
-
-
-            // 3. Submit the registration task to the ExecutorService
-            // This happens *after* setVisible(true) returns, because EDT is blocked.
-            executorService.submit(() -> {
+            // 2. Submit the registration task to the ExecutorService FIRST
+            executorService.submit(() -> { // This Runnable runs on a background thread
                 System.out.println("Registration task submitted to ExecutorService...");
                 String message;
                 boolean success = false;
@@ -145,14 +139,14 @@ public class RegistrationDialog extends JDialog {
                     success = false;
                 }
 
-                // 4. Schedule UI update on Event Dispatch Thread (EDT)
+                // 3. Schedule UI update on Event Dispatch Thread (EDT)
                 String finalMessage = message;
                 boolean finalSuccess = success;
                 System.out.println("Registration Task: Scheduling UI update on EDT.");
 
-                SwingUtilities.invokeLater(() -> {
+                SwingUtilities.invokeLater(() -> { // This Runnable runs back on the EDT
                     System.out.println("EDT: Running UI update after registration task.");
-                    waitingDialog.dispose();
+                    waitingDialog.dispose(); // Dispose the modal dialog, unblocking the EDT
                     System.out.println("EDT: waitingDialog disposed.");
 
                     JOptionPane.showMessageDialog(this, finalMessage,
@@ -161,7 +155,7 @@ public class RegistrationDialog extends JDialog {
                     System.out.println("EDT: Registration result dialog shown.");
 
                     if (finalSuccess) {
-                        dispose();
+                        dispose(); // Close the registration dialog
                         System.out.println("EDT: Registration dialog disposed (success).");
                     } else {
                         registerButton.setEnabled(true);
@@ -172,8 +166,15 @@ public class RegistrationDialog extends JDialog {
                     System.out.println("EDT: UI update complete.");
                 });
                 System.out.println("Registration Task: Finished run method.");
-            });
-            System.out.println("Showing waiting dialog returned (EDT unblocked)."); // This prints after the task finishes and disposes the dialog
+            }); // End of executorService.submit() call
+
+            // 4. Show the modal waiting dialog LAST in the EDT block
+            // The EDT will block here until waitingDialog.dispose() is called from the background thread's invokeLater.
+            System.out.println("Showing waiting dialog (EDT block continues here).");
+            waitingDialog.setLocationRelativeTo(this);
+            waitingDialog.setVisible(true); // THIS CALL NOW BLOCKS THE EDT *AFTER* THE BACKGROUND TASK IS SUBMITTED
+            System.out.println("waiting dialog is now hidden (EDT unblocked)."); // This prints after the dialog is disposed
+
         });
 
         pack();

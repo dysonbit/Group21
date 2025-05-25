@@ -1,10 +1,11 @@
 package Utils;
 
-import com.github.benmanes.caffeine.cache.Caffeine;
-import com.github.benmanes.caffeine.cache.LoadingCache;
+import com.github.benmanes.caffeine.cache.*;
 
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
+
+import com.github.benmanes.caffeine.cache.Caffeine;
 
 /**
  * Generic Cache Utility Class (Supports generics and exception propagation through the loader)

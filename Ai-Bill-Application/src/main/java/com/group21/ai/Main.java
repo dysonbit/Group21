@@ -108,7 +108,7 @@ public class Main {
 
                 JFrame frame = new JFrame("Transaction Management System - " + authenticatedUser.getUsername());
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setSize(1200, 600);
+                frame.setSize(2000, 1500);
                 frame.setLocationRelativeTo(null);
                 frame.add(menuUI.createMainPanel());
                 frame.setVisible(true);

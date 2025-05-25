@@ -1,31 +1,37 @@
 package Controller;
 
-import Constants.StandardCategories;
-import Service.AIservice.AITransactionService;
+import Constants.StandardCategories; // Import StandardCategories if needed in UI
+import Service.AIservice.AITransactionService; // Import AI services
 import Service.AIservice.CollegeStudentNeeds;
-import Service.Impl.SummaryStatisticService;
+import Service.Impl.SummaryStatisticService; // Import SummaryStatisticService
 import Service.TransactionService;
 import Service.User.UserService;
-import model.SummaryStatistic;
+import model.SummaryStatistic; // Import SummaryStatistic
 import model.Transaction;
 import model.User;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
+// import Constants.StandardCategories; // Already imported above
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.io.BufferedWriter;
+import java.io.BufferedWriter; // Added for Export
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Comparator;
+import java.nio.file.Files; // Added for Export
+import java.nio.file.Paths; // Added for Export
+import java.util.ArrayList; // Added for Export
 import java.util.List;
 import java.util.Vector;
-import java.util.concurrent.ExecutorService;
+import java.util.Comparator; // For sorting stats display
+import java.util.concurrent.ExecutorService; // Import ExecutorService
+import java.util.stream.Collectors; // Added for loadCSVDataForCurrentUser
+import java.awt.Dimension;
+
+// Added for Export (Apache Commons CSV)
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+
+// Added for Batch AI (pre-existing in pre)
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 
 public class MenuUI extends JPanel { // Extend JPanel for easier use in Main (optional but common)
@@ -190,7 +196,7 @@ public class MenuUI extends JPanel { // Extend JPanel for easier use in Main (op
 
         JButton menuButton = new JButton("Transaction List"); // "交易列表"
         JButton aiButton = new JButton("AI Analysis");       // "AI分析"
-        JButton adminStatsButton = new JButton("Admin Stats");     // "管理员统计"
+        JButton adminStatsButton = new JButton("Multi-user Analysis");     // "管理员统计"
         JButton visualizationButton = new JButton("Visualization"); // "可视化"
         JButton userManagerButton = new JButton("User Management"); // NEW: User Management button from pre
 

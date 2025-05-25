@@ -1,10 +1,10 @@
 package Service.Impl;
 
 import Constants.StandardCategories;
-import DAO.Impl.CsvTransactionDao;
-import DAO.TransactionDao;
+import DAO.TransactionDao; // Import the interface
+import DAO.Impl.CsvTransactionDao; // Import the implementation
 import Service.TransactionService;
-import Utils.CacheManager;
+import Utils.CacheManager; // Import the new CacheManager
 import model.MonthlySummary;
 import model.Transaction;
 
@@ -14,9 +14,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import java.time.format.DateTimeParseException; // Added for clarity in catch blocks if specific parsing errors are handled
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.stream.Collectors; // Needed for search
 
 public class TransactionServiceImpl implements TransactionService {
 

@@ -1,22 +1,22 @@
 package Service.Impl;
 
-import Constants.ConfigConstants;
-import Constants.StandardCategories;
-import DAO.SummaryStatisticDao;
-import DAO.TransactionDao;
-import DAO.UserDao;
-import Utils.CacheManager;
+import Constants.StandardCategories; // Import StandardCategories
+import DAO.TransactionDao; // Import TransactionDao interface
+import DAO.UserDao; // Import UserDao interface
+import DAO.SummaryStatisticDao; // Import SummaryStatisticDao interface
 import model.SummaryStatistic;
 import model.Transaction;
 import model.User;
+import Utils.CacheManager; // Import CacheManager
+import Constants.ConfigConstants; // Import ConfigConstants for summary file path
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.WeekFields;
+import java.time.temporal.WeekFields; // For getting week of year
 import java.util.*;
 import java.util.stream.Collectors;
+import java.time.format.DateTimeFormatter; // For generating timestamp
 
 public class SummaryStatisticService {
 

@@ -1,6 +1,27 @@
 package Controller;
 
+import Controller.MenuUI;
+import DAO.Impl.CsvSummaryStatisticDao;
+import DAO.Impl.CsvTransactionDao;
+import DAO.Impl.CsvUserDao;
+import DAO.SummaryStatisticDao;
+import DAO.TransactionDao;
+import DAO.UserDao;
+import Interceptor.Login.LoginDialog; // Not used directly for MenuUI test, but part of typical flow
+import Service.AIservice.AITransactionService;
+import Service.AIservice.CollegeStudentNeeds;
+import Service.Impl.SummaryStatisticService;
+import Service.Impl.TransactionServiceImpl;
+import Service.TransactionService;
+import Service.User.UserService;
+import com.group21.ai.Main;
+import model.User;
+import Constants.ConfigConstants; // For paths
+
 import org.junit.jupiter.api.Test;
+import javax.swing.*;
+import java.awt.*;
+import java.util.concurrent.ExecutorService;
 
 public class MenuUITest {
 

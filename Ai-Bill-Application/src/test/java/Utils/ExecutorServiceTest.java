@@ -1,18 +1,12 @@
 package Utils; // Put the test in a relevant package, e.g., Utils where CacheManager is
 
-import com.group21.ai.Main;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import com.group21.ai.Main; // Import the Main class to access the ExecutorService
+import org.junit.jupiter.api.*; // Import JUnit 5 annotations
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicBoolean; // For checking side effects
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*; // Import assertions
 
 
 // Test class for checking ExecutorService functionality

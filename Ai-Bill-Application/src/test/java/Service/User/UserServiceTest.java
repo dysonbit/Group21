@@ -1,11 +1,12 @@
 package Service.User;
 
-import Constants.ConfigConstants;
 import DAO.Impl.CsvSummaryStatisticDao;
 import DAO.Impl.CsvTransactionDao;
 import DAO.Impl.CsvUserDao;
 import DAO.UserDao;
 import model.User;
+import Constants.ConfigConstants;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
