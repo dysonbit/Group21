@@ -35,12 +35,14 @@ A Java-based personal finance management system with AI-powered spending analysi
     setx VOLCENGINE_ACCESS_KEY AKLTN2ZiY2Q4ODBhOWM3NDE4MzgzYjliZmNiMjQ0ZWJmMDQ
     setx VOLCENGINE_SECRET_KEY T0RkaFpUVXhZV1JrTUdObE5EVmlNMkUzT0RRellXUTRNekJrTXpNeVl6WQ==
     setx ARK_API_KEY fbd792bd-8463-4063-89d9-2d4b5bd7ef13
+    Restart your computer
    # CSV Storage Paths
    csv.users.path=CSVForm/users/users.csv
    csv.transactions.dir=CSVForm/transactions
    csv.stats.dir=CSVForm/stats
    ```
-
+2.Open the project in Intellij Idea
+3.click on the pom.xml and choose add as Maven Project. 
 
 Key Functionality:
 -  User registration/login
