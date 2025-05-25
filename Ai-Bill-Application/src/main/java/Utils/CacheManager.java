@@ -1,10 +1,12 @@
 package Utils;
 
 import Constants.CaffeineKeys;
-import DAO.TransactionDao;
+import DAO.Impl.CsvTransactionDao; // Assuming CsvTransactionDao is in DAO.Impl
+import DAO.TransactionDao; // Assuming TransactionDao interface is in DAO
+import model.Transaction;
+import com.github.benmanes.caffeine.cache.Cache; // Use general Cache interface
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
-import model.Transaction;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,5 +1,8 @@
 username,password,role,transaction_csv_path
-admin,admin123,admin,Ai Bill Application/src/main/resources/CSVForm/transactions/admin_transactions.csv
-user1,pass123,user,Ai Bill Application/src/main/resources/CSVForm/transactions/user1_transactions.csv
-user2,securepwd,user,Ai Bill Application/src/main/resources/CSVForm/transactions/user2_transactions.csv
-user123,user123,user,Ai Bill Application\src\main\resources\CSVForm\user_data # Base directory for user transaction and summary files\transactions\user_user123.csv,Ai Bill Application\src\main\resources\CSVForm\user_data # Base directory for user transaction and summary files\stats\user_user123_summary.csv
+admin,admin123,admin,Ai-Bill-Application/src/main/resources/CSVForm/transactions/admin_transactions.csv
+user1,pass123,user,Ai-Bill-Application/src/main/resources/CSVForm/transactions/user1_transactions.csv
+user2,securepwd,user,Ai-Bill-Application/src/main/resources/CSVForm/transactions/user2_transactions.csv
+user123,user123,user,Ai-Bill-Application\src\main\resources\CSVForm\user_data # Base directory for user transaction and summary files\transactions\user_user123.csv,Ai Bill Application\src\main\resources\CSVForm\user_data # Base directory for user transaction and summary files\stats\user_user123_summary.csv
+user,user,user,Ai-Bill-Application\src\main\resources\CSVForm\user_data # Base directory for user transaction and summary files\transactions\user_user.csv,Ai-Bill-Application\src\main\resources\CSVForm\user_data # Base directory for user transaction and summary files\stats\user_user_summary.csv
+
+user1234,user1234,user,Ai-Bill-Application\src\main\resources\CSVForm\user_data # Base directory for user transaction and summary files\transactions\user_user1234.csv,Ai-Bill-Application\src\main\resources\CSVForm\user_data # Base directory for user transaction and summary files\stats\user_user1234_summary.csv

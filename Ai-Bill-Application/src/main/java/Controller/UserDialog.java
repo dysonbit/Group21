@@ -5,8 +5,11 @@ import model.User;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 
 
 /**
@@ -148,8 +151,6 @@ public class UserDialog extends JDialog {
             // --- Disable buttons and show waiting dialog ---
             confirmButton.setEnabled(false);
             cancelButton.setEnabled(false);
-            waitingDialog.setLocationRelativeTo(this);
-            waitingDialog.setVisible(true); // THIS CALL BLOCKS THE EDT
 
 
             // --- Submit the task to the ExecutorService ---
@@ -235,9 +236,13 @@ public class UserDialog extends JDialog {
             executorService.submit(userTask); // Submit the task to the pool
             System.out.println("User task submitted to ExecutorService.");
 
-            // The waiting dialog blocks EDT here until task finishes and disposes it.
-            System.out.println("Waiting dialog is now hidden (EDT unblocked)."); // This prints after task finishes and disposes the dialog
+            // Corrected place to show the dialog: AFTER the task is submitted.
+            // The EDT will block here, waiting for the task's invokeLater to dispose the dialog.
+            System.out.println("Showing waiting dialog (EDT block continues here).");
+            waitingDialog.setLocationRelativeTo(this); // Set location before showing
+            waitingDialog.setVisible(true); // THIS CALL NOW BLOCKS THE EDT *AFTER* THE BACKGROUND TASK IS SUBMITTED
 
+            System.out.println("Waiting dialog is now hidden (EDT unblocked)."); // This prints after task finishes and disposes the dialog
         });
 
 

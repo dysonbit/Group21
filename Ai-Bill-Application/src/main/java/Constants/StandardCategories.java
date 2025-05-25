@@ -1,8 +1,8 @@
 package Constants;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections; // For immutable lists
 import java.util.stream.Collectors;
 
 public final class StandardCategories {
