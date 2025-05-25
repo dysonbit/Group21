@@ -43,6 +43,7 @@ A Java-based personal finance management system with AI-powered spending analysi
    ```
 2.Open the project in Intellij Idea
 3.click on the pom.xml and choose add as Maven Project. 
+4.login users：admin，password：admin123
 
 Key Functionality:
 -  User registration/login
